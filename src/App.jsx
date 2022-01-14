@@ -30,7 +30,7 @@ const App = ({ isServerInfo }) => {
 
   return (
     <div style={styles.content}>
-      <VendingMachine>
+      <VendingMachine/>
     </div>
   );
 };
