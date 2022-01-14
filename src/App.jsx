@@ -1,6 +1,7 @@
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import Text from "antd/lib/typography/Text";
+import VendingMachine from "components/hackathon/vendingMachine";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import "./style.css";
@@ -29,9 +30,7 @@ const App = ({ isServerInfo }) => {
 
   return (
     <div style={styles.content}>
-      <Text style={{ fontSize: "30px", fontWeight: "600" }}>
-        Vending Machine page
-      </Text>
+      <VendingMachine>
     </div>
   );
 };
