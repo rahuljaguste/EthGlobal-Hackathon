@@ -50,6 +50,8 @@
     ]
   },
   "devDependencies": {
+    "@openzeppelin/contracts": "^4.4.2",
+    "@truffle/hdwallet-provider": "^2.0.0",
     "gh-pages": "^3.2.3"
   }
 }
