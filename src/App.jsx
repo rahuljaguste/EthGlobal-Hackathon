@@ -5,6 +5,7 @@ import VendingMachine from "components/hackathon/vendingMachine";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import "./style.css";
+import bck from './assests/bck.png'
 const { Header, Footer } = Layout;
 
 
@@ -22,9 +23,19 @@ const App = ({ isServerInfo }) => {
   }, [isAuthenticated, isWeb3Enabled]);
 
   return (
-    
+    <div
+    style={{
+      backgroundImage : `url(${bck})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      
+      width: '100vw',
+      height: '100vh',
+     
+    }}>
       <VendingMachine/>
-    
+    </div>
   );
 };
 
