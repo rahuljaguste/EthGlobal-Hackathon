@@ -86,8 +86,9 @@ const App = ({ isServerInfo }) => {
         getTokensLeft={getTokensLeft}
         handleMint={handleMint}
         isMintVisible={isMintVisible}
+        Account={<Account/>}
       />
-      <Account />
+      
     </div>
   );
 };

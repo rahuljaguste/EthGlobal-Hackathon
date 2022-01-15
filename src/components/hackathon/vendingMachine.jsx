@@ -2,7 +2,7 @@ import React from "react";
 
 import machine from "../../assests/machine.png";
 import Out_of_service from "../../assests/Out_of_service.png";
-import Account from "components/Account/Account";
+
 /*
 
 these are needed for the cans
@@ -233,18 +233,25 @@ this is what runs after a button has been clicked
         </div>
 
 
-       
-        {this.props.isMintVisible && (
-          <div style={{ position: "absolute", left: 430, top:  330}}>
+      
+        {this.props.isMintVisible ? (
+          <div style={{ position: "absolute", left: 400, top:  330, }}>
             <button
               onClick={() => {
                 this.props.handleMint(this.state.lastPress-1);
               }}
+              style={{width: 140, color: 'purple', borderRadius: 10}}
             >
               Mint
             </button>
-          </div>
-            )}
+            </div>
+            ):
+            <div style={{ position: "absolute", left: 400, top:  330,}}>
+            {this.props.Account}
+            
+            </div>
+            }
+        
       </div>
     );
   }
