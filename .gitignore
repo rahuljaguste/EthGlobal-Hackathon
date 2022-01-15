@@ -108,3 +108,5 @@ dist
 build/
 
 .secret
+
+ipfs/

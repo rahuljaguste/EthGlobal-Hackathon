@@ -23,7 +23,7 @@ contract VendingMachine is
 
     constructor()
         ERC1155(
-            " ipfs://QmatA2s8Kyo2qr1Rnqx4da1KgLxBaomSJxJkaKm9nn3ekE/{id}.json"
+            " ipfs://QmRJNGQwoWspw8nKLybArfmbhgNaDU6mkPhR9ugoEMM6z4/{id}.json"
         )
     {}
 
@@ -39,15 +39,15 @@ contract VendingMachine is
         _unpause();
     }
 
-    function mint(address account) public payable {
+    function mint(uint256 id) public payable {
         require(msg.value >= price, "Insufficient balance to Mint");
         require(tokenId < maxTokens, "Out of Tokens");
         require(addressBalances[msg.sender] <= 3, "You can mint only 3");
-        require(totalSupply(tokenId) < 5, "You can mint only 5");
+        require(totalSupply(id) < 5, "You can mint only 5");
 
         addressBalances[msg.sender] += 1;
         tokenId++;
-        _mint(account, tokenId, 1, "");
+        _mint(msg.sender, id, 1, "");
     }
 
     function _beforeTokenTransfer(
