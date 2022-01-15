@@ -44,9 +44,15 @@ function click(key){
 
 function Can(key, name, i,j){
  
-  return <img src={images[`${name}`]} 
-  style={{width: 50, height: 70, position:'absolute', zIndex: 2, top:120*i, left: j*70}}
-  id={key} key={key.toString()}/>;
+  return (
+  
+  <div  style={{position:'absolute', zIndex: 2, top:120*i, left: j*70, alignItems: "center", textAlign : 'center', backgroundColor : 'white'}} id={key} key={key.toString()}>
+  <img src={images[`${name}`]} 
+  style={{width: '4vw', height: '10vh'}}
+  />
+  {name}
+  </div>
+  );
 
 
 }
@@ -112,7 +118,7 @@ class VendingMachine extends React.Component {
 
 
       
-          <div style={{position: 'absolute',  left: '23vw', top:'11vw'}}>
+          <div style={{position: 'absolute',  left: '23vw', top:'22vh'}}>
           {buttons}
           </div>
 
