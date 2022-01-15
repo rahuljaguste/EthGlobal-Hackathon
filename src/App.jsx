@@ -1,22 +1,16 @@
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import Text from "antd/lib/typography/Text";
+import VendingMachine from "components/hackathon/vendingMachine";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import "./style.css";
-import contractInfo from "contracts/contractInfo.json";
+import bck from './assests/bck.png'
 const { Header, Footer } = Layout;
 
-const styles = {
-  content: {
-    display: "flex",
-    justifyContent: "center",
-    fontFamily: "Roboto, sans-serif",
-    color: "#041836",
-    marginTop: "130px",
-    padding: "10px",
-  },
-};
+
+
+
 const App = ({ isServerInfo }) => {
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
     useMoralis();
@@ -29,10 +23,18 @@ const App = ({ isServerInfo }) => {
   }, [isAuthenticated, isWeb3Enabled]);
 
   return (
-    <div style={styles.content}>
-      <Text style={{ fontSize: "30px", fontWeight: "600" }}>
-        Vending Machine page
-      </Text>
+    <div
+    style={{
+      backgroundImage : `url(${bck})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      
+      width: '100vw',
+      height: '100vh',
+     
+    }}>
+      <VendingMachine/>
     </div>
   );
 };
