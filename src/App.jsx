@@ -4,6 +4,7 @@ import Text from "antd/lib/typography/Text";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import "./style.css";
+import contractInfo from "contracts/contractInfo.json";
 const { Header, Footer } = Layout;
 
 const styles = {
