@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import "antd/dist/antd.css";
 import Text from "antd/lib/typography/Text";
 import VendingMachine from "components/hackathon/vendingMachine";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import "./style.css";
 import bck from "./assests/bck.png";
@@ -18,6 +18,8 @@ const App = ({ isServerInfo }) => {
     isWeb3EnableLoading,
     Moralis,
   } = useMoralis();
+
+  const [isMintVisible, setMintVisible] = useState(false);
 
   const tokenAddress = "0xA1074ff4FC1020DDAbBd7980F928d9EF2A6f9EF4";
   const connectorId = window.localStorage.getItem("connectorId");
@@ -52,6 +54,7 @@ const App = ({ isServerInfo }) => {
 
   const getContractData = async () => {
     await enableWeb3({ provider: connectorId });
+    setMintVisible(true);
   };
 
   useEffect(() => {
@@ -75,7 +78,11 @@ const App = ({ isServerInfo }) => {
         height: "100vh",
       }}
     >
-      <VendingMachine getTokensLeft={getTokensLeft} handleMint={handleMint} />
+      <VendingMachine
+        getTokensLeft={getTokensLeft}
+        handleMint={handleMint}
+        isMintVisible={isMintVisible}
+      />
       <Account />
     </div>
   );

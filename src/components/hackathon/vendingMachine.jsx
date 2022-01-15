@@ -205,15 +205,17 @@ this is what runs after a button has been clicked
         {
           //cans
         }
-        <div style={{ position: "absolute", left: "28vw", top: "40vh" }}>
-          <button
-            onClick={() => {
-              this.props.handleMint(1);
-            }}
-          >
-            Mint
-          </button>
-        </div>
+        {this.props.isMintVisible && (
+          <div style={{ position: "absolute", left: "28vw", top: "40vh" }}>
+            <button
+              onClick={() => {
+                this.props.handleMint(1);
+              }}
+            >
+              Mint
+            </button>
+          </div>
+        )}
       </div>
     );
   }
