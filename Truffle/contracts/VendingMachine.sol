@@ -39,7 +39,7 @@ contract VendingMachine is
         _unpause();
     }
 
-    function mint(address account, uint256 id) public payable {
+    function mint(uint256 id) public payable {
         require(msg.value >= price, "Insufficient balance to Mint");
         require(tokenId < maxTokens, "Out of Tokens");
         require(addressBalances[msg.sender] <= 3, "You can mint only 3");
@@ -47,7 +47,7 @@ contract VendingMachine is
 
         addressBalances[msg.sender] += 1;
         tokenId++;
-        _mint(account, id, 1, "");
+        _mint(msg.sender, id, 1, "");
     }
 
     function _beforeTokenTransfer(
