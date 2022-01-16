@@ -1,14 +1,11 @@
-import { Layout } from "antd";
 import "antd/dist/antd.css";
-import Text from "antd/lib/typography/Text";
 import VendingMachine from "components/hackathon/vendingMachine";
 import { useEffect, useState } from "react";
-import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import "./style.css";
 import bck from "./assests/bck.png";
 import Account from "components/Account/Account";
 import contractInfo from "contracts/contractInfo.json";
-const { Header, Footer } = Layout;
 
 const App = ({ isServerInfo }) => {
   const {
@@ -21,7 +18,7 @@ const App = ({ isServerInfo }) => {
 
   const [isMintVisible, setMintVisible] = useState(false);
 
-  const tokenAddress = "0x3e3ad4A44B76E3A494195553D7e784610e3DAC03";
+  const tokenAddress = "0x68452de333b78ED00E13429a47403090D0bF8D0f";
   const connectorId = window.localStorage.getItem("connectorId");
 
   const getTokensLeft = async (id) => {
@@ -43,7 +40,7 @@ const App = ({ isServerInfo }) => {
   };
 
   const handleMint = async (id) => {
-    const token = await Moralis.executeFunction({
+    await Moralis.executeFunction({
       abi: contractInfo.abi,
       contractAddress: tokenAddress,
       functionName: "mint",

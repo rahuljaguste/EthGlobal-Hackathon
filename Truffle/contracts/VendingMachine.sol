@@ -21,6 +21,11 @@ contract VendingMachine is
     uint256 public maxTokens = 60;
     uint256 public tokenId = 0;
     uint256 public countPerSlot = 5;
+    event Minted(
+        address indexed to,
+        uint256 indexed tokenId,
+        uint256 indexed amount
+    );
 
     constructor()
         ERC1155(
@@ -41,14 +46,16 @@ contract VendingMachine is
     }
 
     function mint(uint256 id) public payable {
+        require(totalSupply(id) < 5, "You can mint only 5");
         require(msg.value >= price, "Insufficient balance to Mint");
         require(tokenId < maxTokens, "Out of Tokens");
         require(addressBalances[msg.sender] <= 3, "You can mint only 3");
-        require(totalSupply(id) < 5, "You can mint only 5");
 
+        uint256 newId = (totalSupply(id) * 12) + id;
         addressBalances[msg.sender] += 1;
         tokenId++;
-        _mint(msg.sender, id, 1, "");
+
+        _mint(msg.sender, newId, 1, "");
     }
 
     function _beforeTokenTransfer(
