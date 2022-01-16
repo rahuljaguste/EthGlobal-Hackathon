@@ -1855,12 +1855,12 @@
     "80001": {
       "events": {},
       "links": {},
-      "address": "0xb5143635dEa7B27d741Ebe32953dcb5624Ce5848",
-      "transactionHash": "0x1133bdeabbf340a76bb703b0dd6691c700f281ae93f88fb8da8066f75f8f6154"
+      "address": "0xBdE62d5D02e222476A9c136351a562297A72738D",
+      "transactionHash": "0x9e60801b4f9e58ee8824bdcb37ffc725e5ba6600b88848087c5e58a68e2cd471"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-01-15T12:37:26.922Z",
+  "updatedAt": "2022-01-16T04:08:42.224Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

@@ -35,12 +35,12 @@ const files = fs.readdirSync(inDirectory);
 // external_url: `https://gateway.pinata.cloud/ipfs/${cid}/${fileName}`,
 async function execute() {
   let counter = 0;
-  for (let i = 0; i < files.length; i++) {
-    for (let j = 0; j < 5; j++) {
-      const fileName = files[i];
-      const shortName = files[i].replace(".jpg", "");
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < files.length; j++) {
+      const fileName = files[j];
+      const shortName = files[j].replace(".jpg", "");
       const data = {
-        name: `${name} ${shortName} #${j + 1}`,
+        name: `${name} ${shortName} #${i + 1}`,
         description: despription,
         image: `ipfs://${cid}/${fileName}`,
         external_url: `https://d5fguytub7na.usemoralis.com`,

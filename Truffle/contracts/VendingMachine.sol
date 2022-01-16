@@ -8,22 +8,23 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
 /// @custom:security-contact rahuljaguste@gmail.com
-contract VendingMachine is
+contract VendingMachineV2 is
     ERC1155,
     Ownable,
     Pausable,
     ERC1155Burnable,
     ERC1155Supply
 {
-    uint256 public price = 0 ether;
+    uint256 public price = 0.1 ether;
 
     mapping(address => uint256) addressBalances;
     uint256 public maxTokens = 60;
     uint256 public tokenId = 0;
+    uint256 public countPerSlot = 5;
 
     constructor()
         ERC1155(
-            " ipfs://QmRJNGQwoWspw8nKLybArfmbhgNaDU6mkPhR9ugoEMM6z4/{id}.json"
+            "ipfs://QmWYReTfhMenvA1fTZ5tCa7fYjMgo672j9cXAZ9s2xmwie/{id}.json"
         )
     {}
 
@@ -73,16 +74,33 @@ contract VendingMachine is
         require(payable(msg.sender).send(address(this).balance));
     }
 
-    function refill(uint256 _additionalTokens) public onlyOwner {
+    function refill(uint256 _additionalTokens, uint256 _countPerSlot)
+        public
+        onlyOwner
+    {
         require(_additionalTokens % 12 == 0, "Refill must be multiple of 12");
         require(
             tokenId == maxTokens,
             "Refill can only be done when all tokens are minted"
         );
+        require(_countPerSlot > 0, "Need atleast 1 token per slot");
+        countPerSlot = _countPerSlot;
         maxTokens += _additionalTokens;
     }
 
+    function reset() public onlyOwner {
+        tokenId = maxTokens;
+    }
+
+    function isOutOfTokens() public view returns (bool) {
+        return tokenId == maxTokens;
+    }
+
+    function getCurrentTokenCount() public view returns (uint256) {
+        return tokenId;
+    }
+
     function getTokenLeft(uint256 id) public view returns (uint256) {
-        return 5 - totalSupply(id);
+        return countPerSlot - totalSupply(id);
     }
 }

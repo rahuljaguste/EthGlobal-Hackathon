@@ -30107,12 +30107,12 @@
         }
       },
       "links": {},
-      "address": "0xA1074ff4FC1020DDAbBd7980F928d9EF2A6f9EF4",
-      "transactionHash": "0x47febab59fe9f97707de1cc13d3ba195a32f572f2a6a54ce95cfb05504facb3f"
+      "address": "0xa744DF715a598Bc168Cd83927121BDcf89AA9A59",
+      "transactionHash": "0xdcaac26612c1a93671cd398471ce6ff570b49c12d5dd6e3531bd3e294f09e980"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-01-15T12:37:26.900Z",
+  "updatedAt": "2022-01-16T04:08:42.196Z",
   "networkType": "ethereum",
   "devdoc": {
     "custom:security-contact": "rahuljaguste@gmail.com",
