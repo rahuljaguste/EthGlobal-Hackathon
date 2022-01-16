@@ -9,15 +9,17 @@ import contractInfo from "contracts/contractInfo.json";
 
 const App = ({ isServerInfo }) => {
   const {
+    chainId,
     isWeb3Enabled,
     enableWeb3,
     isAuthenticated,
     isWeb3EnableLoading,
+    logout,
     Moralis,
   } = useMoralis();
 
   const [isMintVisible, setMintVisible] = useState(false);
-
+  // logout();
   const tokenAddress = "0x68452de333b78ED00E13429a47403090D0bF8D0f";
   const connectorId = window.localStorage.getItem("connectorId");
 
@@ -51,10 +53,34 @@ const App = ({ isServerInfo }) => {
     });
   };
 
+  const getIsOutOfTokens = async () => {
+    if (isWeb3Enabled) {
+      const isOutOfTokens = await Moralis.executeFunction({
+        abi: contractInfo.abi,
+        contractAddress: tokenAddress,
+        functionName: "isOutOfTokens",
+      });
+
+      console.log("isOutOfTokens", isOutOfTokens);
+      return isOutOfTokens;
+    }
+  };
+
   const getContractData = async () => {
     await enableWeb3({ provider: connectorId });
-    setMintVisible(true);
   };
+
+  useEffect(() => {
+    console.log("chainId", chainId);
+    if (chainId === "0x13881") {
+      if (isWeb3Enabled) {
+        getIsOutOfTokens();
+        setMintVisible(true);
+      }
+    } else {
+      setMintVisible(false);
+    }
+  }, [chainId, isWeb3Enabled]);
 
   useEffect(() => {
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
@@ -82,6 +108,7 @@ const App = ({ isServerInfo }) => {
         handleMint={handleMint}
         isMintVisible={isMintVisible}
         Account={<Account />}
+        getIsOutOfTokens={getIsOutOfTokens}
       />
     </div>
   );

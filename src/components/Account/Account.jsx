@@ -97,7 +97,10 @@ function Account() {
                 key={key}
                 onClick={async () => {
                   try {
-                    await authenticate({ provider: connectorId });
+                    await authenticate({
+                      provider: connectorId,
+                      signingMessage: "PolyMachine Authentication",
+                    });
                     window.localStorage.setItem("connectorId", connectorId);
                     setIsAuthModalVisible(false);
                   } catch (e) {
@@ -115,7 +118,11 @@ function Account() {
     );
   }
 
-  return <></>;
+  return (
+    <div style={{ width: "150px", color: "#FFFFFF" }}>
+      <p>Please connect to Polygon Mumbai Network</p>
+    </div>
+  );
 }
 
 export default Account;
