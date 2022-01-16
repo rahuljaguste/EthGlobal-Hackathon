@@ -21,7 +21,7 @@ const App = ({ isServerInfo }) => {
 
   const [isMintVisible, setMintVisible] = useState(false);
 
-  const tokenAddress = "0xA1074ff4FC1020DDAbBd7980F928d9EF2A6f9EF4";
+  const tokenAddress = "0x3e3ad4A44B76E3A494195553D7e784610e3DAC03";
   const connectorId = window.localStorage.getItem("connectorId");
 
   const getTokensLeft = async (id) => {
@@ -52,8 +52,6 @@ const App = ({ isServerInfo }) => {
         id: id,
       },
     });
-
-    
   };
 
   const getContractData = async () => {
@@ -86,9 +84,8 @@ const App = ({ isServerInfo }) => {
         getTokensLeft={getTokensLeft}
         handleMint={handleMint}
         isMintVisible={isMintVisible}
-        Account={<Account/>}
+        Account={<Account />}
       />
-      
     </div>
   );
 };

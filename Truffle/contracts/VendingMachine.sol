@@ -8,14 +8,14 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
 /// @custom:security-contact rahuljaguste@gmail.com
-contract VendingMachineV2 is
+contract VendingMachine is
     ERC1155,
     Ownable,
     Pausable,
     ERC1155Burnable,
     ERC1155Supply
 {
-    uint256 public price = 0.1 ether;
+    uint256 public price = 0 ether;
 
     mapping(address => uint256) addressBalances;
     uint256 public maxTokens = 60;
