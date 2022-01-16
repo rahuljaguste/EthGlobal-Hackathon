@@ -56,6 +56,7 @@ contract VendingMachine is
         tokenId++;
 
         _mint(msg.sender, newId, 1, "");
+        emit Minted(msg.sender, newId, 1);
     }
 
     function _beforeTokenTransfer(

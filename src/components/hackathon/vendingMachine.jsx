@@ -86,8 +86,6 @@ function Button(key, i, j, run) {
 
 const buttons = [];
 
-
-
 class VendingMachine extends React.Component {
   constructor(props) {
     super(props);
@@ -104,13 +102,11 @@ class VendingMachine extends React.Component {
     //this asyncrounous checks if is empty
     //#TODO this is a perfect place to call an backend update function to see if anyone else minted any
 
-   const resp = await this.getTokensLeft();
+    const resp = await this.getTokensLeft();
 
-   if(resp[0] === undefined){
-     return; //web3 isn't working
-   }
-
-
+    if (resp && resp[0] === undefined) {
+      return; //web3 isn't working
+    }
 
     for (let i = 0; i < 12; i++) {
       if (this.state.currentCans[i] > 0) {
@@ -119,28 +115,21 @@ class VendingMachine extends React.Component {
     }
     this.setState({ isEmpty: true });
     alert("Empty");
-   
   };
 
-
-/*  
+  /*  
 this uses the prop function and makes an array of all the types of tokens
 
 */
-getTokensLeft = async()=> {
-  
-  let tokens = Array.from({ length: 12}, (_, i) => 1+ i);
+  getTokensLeft = async () => {
+    let tokens = Array.from({ length: 12 }, (_, i) => 1 + i);
 
-  for(let i = 0; i < 12; i++){
-    tokens[i] = await  this.props.getTokensLeft(i);
-    
-  }
-  
-  this.setState({currentCans : tokens})
+    for (let i = 0; i < 12; i++) {
+      tokens[i] = await this.props.getTokensLeft(i);
+    }
 
-  
-}
-
+    this.setState({ currentCans: tokens });
+  };
 
   /*
 this is what runs after a button has been clicked
@@ -164,7 +153,7 @@ this is what runs after a button has been clicked
     }
     // let temp = this.state.currentCans;
 
-    // temp[index - 1] = temp[index - 1] - 1;  
+    // temp[index - 1] = temp[index - 1] - 1;
 
     //this.setState({ currentCans: cCans }); //decrements amount
   }
@@ -172,7 +161,6 @@ this is what runs after a button has been clicked
   componentDidMount() {
     this.getTokensLeft();
     console.log("current number left 1", this.state.currentCans);
-
 
     let k = 1;
     for (let i = 1; i <= 3; i++) {
@@ -188,14 +176,10 @@ this is what runs after a button has been clicked
   render() {
     return (
       <div style={{ position: "relative", left: 500 }}>
-        <img
-          src={machine}
-          alt="machine"
-          style={{ width: 600, height: 700 }}
-        />
+        <img src={machine} alt="machine" style={{ width: 600, height: 700 }} />
 
         {this.state.isEmpty ? ( //this simply renders the out of order sign
-          <div style={{ position: "absolute", right: 350, top: 200}}>
+          <div style={{ position: "absolute", right: 350, top: 200 }}>
             <img
               src={Out_of_service}
               alt="out of service"
@@ -204,7 +188,7 @@ this is what runs after a button has been clicked
           </div>
         ) : null}
 
-        <div style={{ position: "absolute", left: 350, top: 160}}>
+        <div style={{ position: "absolute", left: 350, top: 160 }}>
           {buttons}
         </div>
 
@@ -232,26 +216,22 @@ this is what runs after a button has been clicked
           ) : null}
         </div>
 
-
-      
         {this.props.isMintVisible ? (
-          <div style={{ position: "absolute", left: 400, top:  330, }}>
+          <div style={{ position: "absolute", left: 400, top: 330 }}>
             <button
               onClick={() => {
-                this.props.handleMint(this.state.lastPress-1);
+                this.props.handleMint(this.state.lastPress - 1);
               }}
-              style={{width: 140, color: 'purple', borderRadius: 10}}
+              style={{ width: 140, color: "purple", borderRadius: 10 }}
             >
               Mint
             </button>
-            </div>
-            ):
-            <div style={{ position: "absolute", left: 400, top:  330,}}>
+          </div>
+        ) : (
+          <div style={{ position: "absolute", left: 400, top: 330 }}>
             {this.props.Account}
-            
-            </div>
-            }
-        
+          </div>
+        )}
       </div>
     );
   }
