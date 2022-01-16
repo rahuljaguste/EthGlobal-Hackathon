@@ -2,7 +2,7 @@ import React from "react";
 
 import machine from "../../assests/machine.png";
 import Out_of_service from "../../assests/Out_of_service.png";
-import Account from "components/Account/Account";
+
 /*
 
 these are needed for the cans
@@ -86,15 +86,15 @@ function Button(key, i, j, run) {
 
 const buttons = [];
 
-//const cans = [];
+
 
 class VendingMachine extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentCans: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+      currentCans: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       maxCans: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-      empty: false,
+      isEmpty: false,
       lastPress: 0, //index + 1 since it starts at 1, 0 is a null value
       color: "green",
     };
@@ -104,6 +104,14 @@ class VendingMachine extends React.Component {
     //this asyncrounous checks if is empty
     //#TODO this is a perfect place to call an backend update function to see if anyone else minted any
 
+   const resp = await this.getTokensLeft();
+
+   if(resp[0] === undefined){
+     return; //web3 isn't working
+   }
+
+
+
     for (let i = 0; i < 12; i++) {
       if (this.state.currentCans[i] > 0) {
         return;
@@ -111,11 +119,32 @@ class VendingMachine extends React.Component {
     }
     this.setState({ isEmpty: true });
     alert("Empty");
+   
   };
+
+
+/*  
+this uses the prop function and makes an array of all the types of tokens
+
+*/
+getTokensLeft = async()=> {
+  
+  let tokens = Array.from({ length: 12}, (_, i) => 1+ i);
+
+  for(let i = 0; i < 12; i++){
+    tokens[i] = await  this.props.getTokensLeft(i);
+    
+  }
+  
+  this.setState({currentCans : tokens})
+
+  
+}
+
 
   /*
 this is what runs after a button has been clicked
-#TODO add some backedn updates here
+
 
 @index is the index starting at 1(even though the array starts at 0 that's why -1 appears)
 */
@@ -135,15 +164,16 @@ this is what runs after a button has been clicked
     }
     // let temp = this.state.currentCans;
 
-    // temp[index - 1] = temp[index - 1] - 1;
-    console.log(index);
-    const cCans = await this.props.getTokensLeft(index);
-    console.log(cCans);
+    // temp[index - 1] = temp[index - 1] - 1;  
 
-    this.setState({ currentCans: cCans }); //decrements amount
+    //this.setState({ currentCans: cCans }); //decrements amount
   }
 
   componentDidMount() {
+    this.getTokensLeft();
+    console.log("current number left 1", this.state.currentCans);
+
+
     let k = 1;
     for (let i = 1; i <= 3; i++) {
       for (let j = 1; j <= 4; j++) {
@@ -157,15 +187,15 @@ this is what runs after a button has been clicked
 
   render() {
     return (
-      <div style={{ position: "absolute", left: "50vw" }}>
+      <div style={{ position: "relative", left: 500 }}>
         <img
           src={machine}
           alt="machine"
-          style={{ width: "40vw", height: "100vh" }}
+          style={{ width: 600, height: 700 }}
         />
 
         {this.state.isEmpty ? ( //this simply renders the out of order sign
-          <div style={{ position: "absolute", right: "23vw", top: "24vh" }}>
+          <div style={{ position: "absolute", right: 350, top: 200}}>
             <img
               src={Out_of_service}
               alt="out of service"
@@ -174,17 +204,17 @@ this is what runs after a button has been clicked
           </div>
         ) : null}
 
-        <div style={{ position: "absolute", left: "23vw", top: "24vh" }}>
+        <div style={{ position: "absolute", left: 350, top: 160}}>
           {buttons}
         </div>
 
         <div
           style={{
             position: "absolute",
-            left: "29vw",
-            top: "23.5vh",
+            left: 432,
+            top: 163,
             backgroundColor: this.state.color,
-            width: "5vw",
+            width: 75,
             height: 20,
             textAlign: "center",
             borderRadius: 5,
@@ -202,20 +232,26 @@ this is what runs after a button has been clicked
           ) : null}
         </div>
 
-        {
-          //cans
-        }
-        {this.props.isMintVisible && (
-          <div style={{ position: "absolute", left: "28vw", top: "40vh" }}>
+
+      
+        {this.props.isMintVisible ? (
+          <div style={{ position: "absolute", left: 400, top:  330, }}>
             <button
               onClick={() => {
-                this.props.handleMint(1);
+                this.props.handleMint(this.state.lastPress-1);
               }}
+              style={{width: 140, color: 'purple', borderRadius: 10}}
             >
               Mint
             </button>
-          </div>
-        )}
+            </div>
+            ):
+            <div style={{ position: "absolute", left: 400, top:  330,}}>
+            {this.props.Account}
+            
+            </div>
+            }
+        
       </div>
     );
   }

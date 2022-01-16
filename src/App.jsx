@@ -38,6 +38,8 @@ const App = ({ isServerInfo }) => {
       console.log("tokensLeft", token);
       return token;
     }
+
+    console.log("Web3Error");
   };
 
   const handleMint = async (id) => {
@@ -50,6 +52,8 @@ const App = ({ isServerInfo }) => {
         id: id,
       },
     });
+
+    
   };
 
   const getContractData = async () => {
@@ -82,8 +86,9 @@ const App = ({ isServerInfo }) => {
         getTokensLeft={getTokensLeft}
         handleMint={handleMint}
         isMintVisible={isMintVisible}
+        Account={<Account/>}
       />
-      <Account />
+      
     </div>
   );
 };
